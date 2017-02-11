@@ -9,16 +9,12 @@ namespace PowerballApi.Models
     {
         public string Date { get; set; }
 
-        public int NumberOne { get; set; }
+        public int[] WinNumbers { get; set; }
 
-        public int NumberTwo { get; set; }
-
-        public int NumberThree { get; set; }
-
-        public int NumberFour { get; set; }
-
-        public int NumberFive { get; set; }
-
-        public int PowerballNumber { get; set; }
+        public PowerballSet()
+        {
+            WinNumbers = new int[6];
+        }
+       
     }
 }

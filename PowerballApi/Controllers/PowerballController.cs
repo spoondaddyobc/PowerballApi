@@ -33,12 +33,12 @@ namespace PowerballApi.Controllers
                     {
                         var set = new PowerballSet();
                         set.Date = dataline[0];
-                        set.NumberOne = int.Parse(dataline[1]);
-                        set.NumberTwo = int.Parse(dataline[2]);
-                        set.NumberThree = int.Parse(dataline[3]);
-                        set.NumberFour = int.Parse(dataline[4]);
-                        set.NumberFive = int.Parse(dataline[5]);
-                        set.PowerballNumber = int.Parse(dataline[6]);
+                        set.WinNumbers[0] = int.Parse(dataline[1]);
+                        set.WinNumbers[1] = int.Parse(dataline[2]);
+                        set.WinNumbers[2] = int.Parse(dataline[3]);
+                        set.WinNumbers[3] = int.Parse(dataline[4]);
+                        set.WinNumbers[4] = int.Parse(dataline[5]);
+                        set.WinNumbers[5] = int.Parse(dataline[6]);
                         powerballList.Add(set);
                     }
                     lineNumber++;
