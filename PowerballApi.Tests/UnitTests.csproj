@@ -48,13 +48,13 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="UnitTest1.cs" />
+    <Compile Include="ApiPowerballControllerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\PowerballApi\PowerballApi.csproj">
+    <ProjectReference Include="..\PowerballApi\Api.csproj">
       <Project>{7748E4F8-10CB-4ADE-B5CC-4E213911DBA6}</Project>
-      <Name>PowerballApi</Name>
+      <Name>Api</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
