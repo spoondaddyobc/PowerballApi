@@ -1,4 +1,4 @@
-﻿namespace PowerballApi
+﻿namespace PowerballApi.Api
 {
 	using System.Web.Http;
 

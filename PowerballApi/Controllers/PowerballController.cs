@@ -1,4 +1,4 @@
-﻿namespace PowerballApi.Controllers
+﻿namespace PowerballApi.Api.Controllers
 {
 	using System;
 	using System.Collections.Generic;
@@ -43,7 +43,7 @@
 			var name = "numberfile" + date + ".txt";
 
 			// TODO: Relocate so project is workstation agnostic
-			const string location = @"C:\Users\Tyree Barron\Desktop";
+			const string location = @"C:\Users\jaurand\Desktop";
 			var path = location + "\\NumbersFile\\" + name;
 
 			return path;
