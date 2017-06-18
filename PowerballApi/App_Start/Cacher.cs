@@ -1,18 +1,21 @@
-﻿namespace PowerballApi.Api
+﻿using System.Collections.Generic;
+using PowerballApi.Api.Models;
+
+namespace PowerballApi.Api
 {
 	using System;
 	using System.Runtime.Caching;
 
 	public class Cacher
     {
-        public void CacheData()
+        public void CacheData(PowerballSetList powerballSetList)
         {
             // plain object for now.
-            var results = new object();
             
+
             var expiration = DateTime.Today.AddDays(1);
 
-            MemoryCache.Default.Set("PowerballData", results, expiration);
+            MemoryCache.Default.Set("PowerballData", powerballSetList, expiration);
         }
     }
 }
