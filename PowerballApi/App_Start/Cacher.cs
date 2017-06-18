@@ -1,9 +1,9 @@
-﻿namespace PowerballApi
+﻿namespace PowerballApi.Api
 {
-    using System;
-    using System.Runtime.Caching;
+	using System;
+	using System.Runtime.Caching;
 
-    public class Cacher
+	public class Cacher
     {
         public void CacheData()
         {

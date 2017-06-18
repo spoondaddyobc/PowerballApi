@@ -1,8 +1,8 @@
-﻿namespace PowerballApi.Helper
+﻿namespace PowerballApi.Api.Helper
 {
 	using System.Collections.Generic;
-	using Microsoft.VisualBasic.FileIO;
 	using Models;
+	using Microsoft.VisualBasic.FileIO;
 
 	public class PowerballParser
 	{
@@ -19,7 +19,11 @@
 				while (!parser.EndOfData)
 				{
 					if (parser.LineNumber == 1)
+					{
+						// This is necessary to incremenet the line number
+						parser.ReadLine();
 						continue;
+					}
 
 					var dataLine = parser.ReadFields();
 					if (dataLine == null || dataLine.Length < 7)
@@ -45,5 +49,5 @@
 
 			return powerballResults;
 		}
-    }
+	}
 }
