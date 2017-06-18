@@ -1,7 +1,6 @@
-﻿namespace PowerballApi.Tests
+﻿namespace PowerballApi.UnitTests
 {
 	using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using NSubstitute;
 
 	[TestClass]
     public class ApiPowerballControllerTests
