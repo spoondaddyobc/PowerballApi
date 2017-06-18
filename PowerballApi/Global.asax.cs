@@ -9,7 +9,7 @@
 			GlobalConfiguration.Configure(WebApiConfig.Register);
 
 			var cacher = new Cacher();
-			cacher.CacheData();
+			
 		}
 	}
 }
