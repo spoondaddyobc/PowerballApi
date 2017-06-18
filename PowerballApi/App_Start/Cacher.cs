@@ -8,7 +8,7 @@ namespace PowerballApi.Api
 
 	public class Cacher
     {
-        public void CacheData(PowerballSetList powerballSetList)
+        public void CacheData(List<PowerballSet> powerballSetList)
         {
             // plain object for now.
             

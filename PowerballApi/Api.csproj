@@ -95,7 +95,6 @@
     </Compile>
     <Compile Include="Helper\PowerballParser.cs" />
     <Compile Include="Models\PowerballSet.cs" />
-    <Compile Include="Models\PowerballSetList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

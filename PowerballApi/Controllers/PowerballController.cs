@@ -14,20 +14,18 @@
 		[HttpGet]
 		public IEnumerable<PowerballSet> GetPowerballNumbers()
 		{
-		    IEnumerable<PowerballSet> results;
+		    List<PowerballSet> results;
 		    if (MemoryCache.Default.Get("PowerballData") !=  null)
 		    {
-		        results = (IEnumerable<PowerballSet>) MemoryCache.Default.Get("PowerballData");
+		        results = (List<PowerballSet>) MemoryCache.Default.Get("PowerballData");
 		    }
 		    else
 		    {
                 var file = GetPowerballFile();
                 var parser = new PowerballParser();
 		        results = parser.Parse(file);
-                var listings = new PowerballSetList();
-		        listings.PowerballSets = (List<PowerballSet>) results;
                 var cacher = new Cacher();
-                cacher.CacheData(listings);
+                cacher.CacheData(results);
                 
                 
             }
