@@ -1,4 +1,4 @@
-﻿namespace PowerballApi.Models
+﻿namespace PowerballApi.Api.Models
 {
 	public class PowerballSet
 	{

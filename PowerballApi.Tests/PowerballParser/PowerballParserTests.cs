@@ -1,9 +1,9 @@
-﻿namespace PowerballApi.Tests.PowerballParser
+﻿namespace PowerballApi.UnitTests.PowerballParser
 {
 	using System.Collections.Generic;
-	using Helper;
+	using Api.Helper;
+	using Api.Models;
 	using Microsoft.VisualStudio.TestTools.UnitTesting;
-	using Models;
 
 	[TestClass]
 	public class PowerballParserTests

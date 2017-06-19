@@ -1,52 +1,43 @@
-﻿namespace PowerballApi.Controllers
+﻿namespace PowerballApi.Api.Controllers
 {
-	using System;
 	using System.Collections.Generic;
-	using System.IO;
 	using System.Net;
 	using System.Web.Http;
 	using Helper;
 	using Models;
+    using System.Runtime.Caching;
 
 	public class PowerballController : ApiController
 	{
 		[HttpGet]
 		public IEnumerable<PowerballSet> GetPowerballNumbers()
 		{
-			var file = GetPowerballFile();
-			var parser = new PowerballParser();
-			var results = parser.Parse(file);
-			return results;
+		    List<PowerballSet> results;
+		    if (MemoryCache.Default.Get("PowerballData") !=  null)
+		    {
+		        results = (List<PowerballSet>) MemoryCache.Default.Get("PowerballData");
+		    }
+		    else
+		    {
+                var file = GetPowerballFile();
+                var parser = new PowerballParser();
+		        results = parser.Parse(file);
+                var cacher = new Cacher();
+                cacher.CacheData(results);
+            }
+		    return results;
 		}
 
 		private static string GetPowerballFile()
 		{
-			var path = GetPowerballFilePath();
-
-			if (File.Exists(path))
-				return path;
-
 			using (var client = new WebClient())
 			{
 				const string url = @"http://www.powerball.com/powerball/winnums-text.txt";
 
-				// TODO: Store in memory so we're not collecting stale files
-				client.DownloadFile(url, path);
+				var result = client.DownloadString(url);
 
-				return path;
+				return result;
 			}
-		}
-
-		private static string GetPowerballFilePath()
-		{
-			var date = DateTime.Today.ToString("yyyymmdd");
-			var name = "numberfile" + date + ".txt";
-
-			// TODO: Relocate so project is workstation agnostic
-			const string location = @"C:\Users\Tyree Barron\Desktop";
-			var path = location + "\\NumbersFile\\" + name;
-
-			return path;
 		}
 	}
 }
