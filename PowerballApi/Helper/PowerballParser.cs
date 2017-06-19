@@ -1,4 +1,7 @@
-﻿namespace PowerballApi.Api.Helper
+﻿using System;
+using System.IO;
+
+namespace PowerballApi.Api.Helper
 {
 	using System.Collections.Generic;
 	using Models;
@@ -12,26 +15,23 @@
 				return new List<PowerballSet>();
 
 			var powerballResults = new List<PowerballSet>();
-			using (var parser = new TextFieldParser(file))
+			using (StringReader sr = new StringReader(file))
 			{
-				parser.SetDelimiters("  ");
+			    string line;
+			    bool isFirstLine = true;
+			    while ((line = sr.ReadLine()) != null)
+			    {
+			        if (isFirstLine)
+			        {
+			            isFirstLine = false;
+                        continue;
+                    }
 
-				while (!parser.EndOfData)
-				{
-					if (parser.LineNumber == 1)
+			        var dataLine = line.Split((string[]) null, StringSplitOptions.RemoveEmptyEntries);
+
+                    var set = new PowerballSet
 					{
-						// This is necessary to incremenet the line number
-						parser.ReadLine();
-						continue;
-					}
-
-					var dataLine = parser.ReadFields();
-					if (dataLine == null || dataLine.Length < 7)
-						continue;
-
-					var set = new PowerballSet
-					{
-						Date = dataLine[0],
+						Date = dataLine[0].ToString(),
 						WinNumbers =
 						{
 							[0] = int.Parse(dataLine[1]),
@@ -44,6 +44,7 @@
 					};
 
 					powerballResults.Add(set);
+
 				}
 			}
 
