@@ -27,5 +27,34 @@
 
 			CollectionAssert.AreEqual(result, new List<PowerballSet>());
 		}
+
+		[TestMethod]
+		public void WhenDataLineIsTooShort_SkipThatLine()
+		{
+			var sot = new PowerballParser();
+			var file = PowerballDrawings.DataLineTooShort;
+
+			var result = sot.Parse(file);
+
+			CollectionAssert.AreEqual(result, new List<PowerballSet>());
+		}
+
+		[TestMethod]
+		public void WhenGoodDataSet_ReturnPowerballResults()
+		{
+			var sot = new PowerballParser();
+			var file = PowerballDrawings.GoodFileFormat;
+
+			var result = sot.Parse(file)[0];
+
+			Assert.AreEqual(result.Date, "01/01/2000");
+			Assert.AreEqual(result.WinNumbers[0], 1);
+			Assert.AreEqual(result.WinNumbers[1], 2);
+			Assert.AreEqual(result.WinNumbers[2], 3);
+			Assert.AreEqual(result.WinNumbers[3], 4);
+			Assert.AreEqual(result.WinNumbers[4], 5);
+			Assert.AreEqual(result.WinNumbers[5], 6);
+			Assert.AreEqual(result.PowerPlay, 7);
+		}
 	}
 }

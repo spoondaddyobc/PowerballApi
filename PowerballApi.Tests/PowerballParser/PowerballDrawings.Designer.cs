@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PowerballApi.Tests.PowerballParser {
+namespace PowerballApi.UnitTests.PowerballParser {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace PowerballApi.Tests.PowerballParser {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("PowerballApi.Tests.PowerballParser.PowerballDrawings", typeof(PowerballDrawings).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("PowerballApi.UnitTests.PowerballParser.PowerballDrawings", typeof(PowerballDrawings).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -62,7 +62,7 @@ namespace PowerballApi.Tests.PowerballParser {
         
         /// <summary>
         ///   Looks up a localized string similar to Draw Date   WB1 WB2 WB3 WB4 WB5 PB  PP
-        ///06/17/2017  13  62  10  53  32  21.
+        ///01/01/2000  1  2  3  4  5  6.
         /// </summary>
         internal static string DataLineTooShort {
             get {
@@ -72,7 +72,7 @@ namespace PowerballApi.Tests.PowerballParser {
         
         /// <summary>
         ///   Looks up a localized string similar to Draw Date   WB1 WB2 WB3 WB4 WB5 PB  PP
-        ///06/17/2017  13  62  10  53  32  21  2.
+        ///01/01/2000  1  2  3  4  5  6  7.
         /// </summary>
         internal static string GoodFileFormat {
             get {

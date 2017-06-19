@@ -1,43 +1,34 @@
 ﻿namespace PowerballApi.Api.Controllers
 {
-	using System.Collections.Generic;
-	using System.Net;
+	using System.Linq;
 	using System.Web.Http;
 	using Helper;
-	using Models;
-    using System.Runtime.Caching;
+	using Repositories;
 
 	public class PowerballController : ApiController
 	{
-		[HttpGet]
-		public IEnumerable<PowerballSet> GetPowerballNumbers()
+		private ICacher _cacher;
+		private IHttpHandler _httpHandler;
+		private IPowerballParser _parser;
+		private readonly IPowerballRepository _repository;
+
+		public PowerballController()
 		{
-		    List<PowerballSet> results;
-		    if (MemoryCache.Default.Get("PowerballData") !=  null)
-		    {
-		        results = (List<PowerballSet>) MemoryCache.Default.Get("PowerballData");
-		    }
-		    else
-		    {
-                var file = GetPowerballFile();
-                var parser = new PowerballParser();
-		        results = parser.Parse(file);
-                var cacher = new Cacher();
-                cacher.CacheData(results);
-            }
-		    return results;
+			_cacher = new Cacher();
+			_httpHandler = new HttpHandler();
+			_parser = new PowerballParser();
+			_repository = new PowerballRepository(_cacher, _httpHandler, _parser);
 		}
 
-		private static string GetPowerballFile()
+		[HttpGet]
+		public IHttpActionResult PowerballResults()
 		{
-			using (var client = new WebClient())
-			{
-				const string url = @"http://www.powerball.com/powerball/winnums-text.txt";
+			var response = _repository.Get();
 
-				var result = client.DownloadString(url);
+			if (response == null || !response.Any())
+				return NotFound();
 
-				return result;
-			}
+			return Ok(response);
 		}
 	}
 }

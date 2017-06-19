@@ -4,6 +4,7 @@
 	{
 		public string Date { get; set; }
 		public int[] WinNumbers { get; set; }
+		public int PowerPlay { get; set; }
 
 		public PowerballSet()
 		{
