@@ -1,7 +1,9 @@
 ﻿namespace PowerballApi.Api.Repositories
 {
 	using System.Collections.Generic;
-	using Helper;
+	using Helpers.Cacher;
+	using Helpers.HttpHandler;
+	using Helpers.PowerballParser;
 	using Models;
 
 	public class PowerballRepository : IPowerballRepository

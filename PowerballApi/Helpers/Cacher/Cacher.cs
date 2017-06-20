@@ -1,4 +1,4 @@
-﻿namespace PowerballApi.Api.Helper
+﻿namespace PowerballApi.Api.Helpers.Cacher
 {
 	using System;
 	using System.Runtime.Caching;

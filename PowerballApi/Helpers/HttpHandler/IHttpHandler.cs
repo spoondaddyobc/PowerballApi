@@ -1,4 +1,4 @@
-﻿namespace PowerballApi.Api.Helper
+﻿namespace PowerballApi.Api.Helpers.HttpHandler
 {
 	using System.Threading.Tasks;
 
