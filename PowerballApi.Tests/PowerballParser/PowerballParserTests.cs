@@ -1,7 +1,7 @@
 ﻿namespace PowerballApi.UnitTests.PowerballParser
 {
 	using System.Collections.Generic;
-	using Api.Helper;
+	using Api.Helpers.PowerballParser;
 	using Api.Models;
 	using Microsoft.VisualStudio.TestTools.UnitTesting;
 

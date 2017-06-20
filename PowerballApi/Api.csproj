@@ -87,17 +87,17 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Helper\Cacher.cs" />
+    <Compile Include="Helpers\Cacher\Cacher.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\PowerballController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Helper\HttpHandler.cs" />
-    <Compile Include="Helper\ICacher.cs" />
-    <Compile Include="Helper\IHttpHandler.cs" />
-    <Compile Include="Helper\IPowerballParser.cs" />
-    <Compile Include="Helper\PowerballParser.cs" />
+    <Compile Include="Helpers\HttpHandler\HttpHandler.cs" />
+    <Compile Include="Helpers\Cacher\ICacher.cs" />
+    <Compile Include="Helpers\HttpHandler\IHttpHandler.cs" />
+    <Compile Include="Helpers\PowerballParser\IPowerballParser.cs" />
+    <Compile Include="Helpers\PowerballParser\PowerballParser.cs" />
     <Compile Include="Models\PowerballSet.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\IPowerballRepository.cs" />

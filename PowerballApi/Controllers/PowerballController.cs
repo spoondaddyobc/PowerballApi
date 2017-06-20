@@ -2,7 +2,9 @@
 {
 	using System.Linq;
 	using System.Web.Http;
-	using Helper;
+	using Helpers.Cacher;
+	using Helpers.HttpHandler;
+	using Helpers.PowerballParser;
 	using Repositories;
 
 	public class PowerballController : ApiController

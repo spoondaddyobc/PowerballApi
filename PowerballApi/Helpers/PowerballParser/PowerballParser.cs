@@ -1,4 +1,4 @@
-﻿namespace PowerballApi.Api.Helper
+﻿namespace PowerballApi.Api.Helpers.PowerballParser
 {
 	using System;
 	using System.Collections.Generic;
