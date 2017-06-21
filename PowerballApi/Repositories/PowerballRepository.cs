@@ -8,9 +8,10 @@
 
 	public class PowerballRepository : IPowerballRepository
 	{
-		private const string _cacheName = @"PowerballData";
-		private const int _daysUntilStale = 1;
-		private const string _powerballUrl = @"http://www.powerball.com/powerball/winnums-text.txt";
+		public string CacheName { get; set; } = @"PowerballData";
+		public int DaysUntilStale { get; set; } = 1;
+		public string PowerballUrl { get; set; } = @"http://www.powerball.com/powerball/winnums-text.txt";
+
 		private readonly ICacher _cacher;
 		private readonly IHttpHandler _httpHandler;
 		private readonly IPowerballParser _parser;
@@ -31,18 +32,18 @@
 
 		public List<PowerballSet> Get()
 		{
-			var cache = _cacher.Get(_cacheName);
+			var cache = _cacher.Get(CacheName);
 			if (cache != null)
 				return (List<PowerballSet>)cache;
 
-			return GetPowerballDrawings();
+			return GetFreshDrawings();
 		}
 
-		private List<PowerballSet> GetPowerballDrawings()
+		private List<PowerballSet> GetFreshDrawings()
 		{
-			var file = _httpHandler.GetStringAsync(_powerballUrl).Result;
+			var file = _httpHandler.GetStringAsync(PowerballUrl).Result;
 			var results = _parser.Parse(file);
-			_cacher.Set(_cacheName, results, _daysUntilStale);
+			_cacher.Set(CacheName, results, DaysUntilStale);
 			return results;
 		}
 	}
