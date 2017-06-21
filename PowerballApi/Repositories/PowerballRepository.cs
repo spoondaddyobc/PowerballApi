@@ -15,6 +15,13 @@
 		private readonly IHttpHandler _httpHandler;
 		private readonly IPowerballParser _parser;
 
+		public PowerballRepository()
+		{
+			_cacher = new Cacher();
+			_httpHandler = new HttpHandler();
+			_parser = new PowerballParser();
+		}
+
 		public PowerballRepository(ICacher cacher, IHttpHandler httpHandler, IPowerballParser parser)
 		{
 			_cacher = cacher;
@@ -28,15 +35,15 @@
 			if (cache != null)
 				return (List<PowerballSet>)cache;
 
-			var file = GetPowerballFile();
+			return GetPowerballDrawings();
+		}
+
+		private List<PowerballSet> GetPowerballDrawings()
+		{
+			var file = _httpHandler.GetStringAsync(_powerballUrl).Result;
 			var results = _parser.Parse(file);
 			_cacher.Set(_cacheName, results, _daysUntilStale);
 			return results;
-		}
-
-		private string GetPowerballFile()
-		{
-			return _httpHandler.GetStringAsync(_powerballUrl).Result;
 		}
 	}
 }
