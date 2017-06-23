@@ -32,6 +32,7 @@
 					var set = new PowerballSet
 					{
 						Date = dataLine[0],
+						PowerPlay = int.Parse(dataLine[7]),
 						WinNumbers =
 						{
 							[0] = int.Parse(dataLine[1]),
@@ -40,8 +41,7 @@
 							[3] = int.Parse(dataLine[4]),
 							[4] = int.Parse(dataLine[5]),
 							[5] = int.Parse(dataLine[6])
-						},
-						PowerPlay = int.Parse(dataLine[7])
+						}
 					};
 
 					powerballResults.Add(set);
