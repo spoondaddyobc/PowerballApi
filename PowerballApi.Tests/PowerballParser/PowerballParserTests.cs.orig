@@ -2,18 +2,14 @@
 {
 	using System;
 	using System.Collections.Generic;
-	using Api.Helpers.PowerballParser;
+	using Api.Helpers.Parser;
 	using Api.Models;
 	using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 	[TestClass]
 	public class PowerballParserTests
 	{
-<<<<<<< HEAD
-		private IFileParser<PowerballSet> _sot;
-=======
-		private IPowerballParser _sut;
->>>>>>> d7f7950f56c69e31954c8986ae5423f34a29d103
+		private IFileParser<PowerballSet> _sut;
 
 		[TestInitialize]
 		public void Initialize()
@@ -22,45 +18,41 @@
 		}
 
 		[TestMethod]
-		public void WhenFileIsNull_ReturnEmptyList()
-		{
 <<<<<<< HEAD
+		public void Parse_WhenFileIsNull_ReturnArgumentNullException()
+=======
+		public void WhenFileIsNull_ReturnArgumentNullException()
+>>>>>>> dev
+		{
 			try
 			{
-				_sot.Parse(null);
+				_sut.Parse(null);
 			}
 			catch (Exception ex)
 			{
 				Assert.IsInstanceOfType(ex, typeof(ArgumentNullException));
 			}
-=======
-			var result = _sut.Parse(null);
-
-			CollectionAssert.AreEqual(result, new List<PowerballSet>());
->>>>>>> d7f7950f56c69e31954c8986ae5423f34a29d103
 		}
 
 		[TestMethod]
-		public void WhenFileIsEmpty_ReturnEmptyList()
-		{
 <<<<<<< HEAD
+		public void Parse_WhenFileIsEmpty_ReturnFormatException()
+=======
+		public void WhenFileIsEmpty_ReturnFormatException()
+>>>>>>> dev
+		{
 			try
 			{
-				_sot.Parse(string.Empty);
+				_sut.Parse(string.Empty);
 			}
 			catch (Exception ex)
 			{
 				Assert.IsInstanceOfType(ex, typeof(FormatException));
 			}
-=======
-			var result = _sut.Parse(string.Empty);
-
-			CollectionAssert.AreEqual(result, new List<PowerballSet>());
->>>>>>> d7f7950f56c69e31954c8986ae5423f34a29d103
 		}
 
 		[TestMethod]
-		public void WhenDataLineIsTooShort_SkipThatLine()
+		public void Parse_WhenFileLineIsTooShort_SkipThatLine()
 		{
 			var file = PowerballDrawings.DataLineTooShort;
 
@@ -70,7 +62,7 @@
 		}
 
 		[TestMethod]
-		public void WhenGoodDataSet_ReturnPowerballResults()
+		public void Parse_WhenGoodFileFormat_ReturnPowerballResults()
 		{
 			var file = PowerballDrawings.GoodFileFormat;
 

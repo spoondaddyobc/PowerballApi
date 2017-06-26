@@ -3,7 +3,7 @@
 	using System.Collections.Generic;
 	using Helpers.Cacher;
 	using Helpers.HttpHandler;
-	using Helpers.PowerballParser;
+	using Helpers.Parser;
 	using Models;
 
 	public class PowerballRepository : IPowerballRepository
