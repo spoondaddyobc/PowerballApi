@@ -5,7 +5,7 @@
 	using System.IO;
 	using Models;
 
-	public class PowerballParser : IFileParser<PowerballSet>
+	public class PowerballParser : IParser<PowerballSet, string>
 	{
 		public List<PowerballSet> Parse(string file)
 		{
