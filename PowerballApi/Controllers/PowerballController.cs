@@ -1,12 +1,15 @@
-﻿namespace PowerballApi.Api.Controllers
+﻿using System.Runtime.InteropServices.ComTypes;
+
+
+namespace PowerballApi.Api.Controllers
 {
 	using System.Linq;
 	using System.Web.Http;
 	using Repositories;
-
-	public class PowerballController : ApiController
+    using Models;
+    public class PowerballController : ApiController
 	{
-		private readonly IPowerballRepository _repository;
+		private readonly IRepository<PowerballSet> _repository;
 
 		public PowerballController()
 		{

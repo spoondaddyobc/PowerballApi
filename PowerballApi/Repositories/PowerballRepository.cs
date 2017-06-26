@@ -1,4 +1,6 @@
-﻿namespace PowerballApi.Api.Repositories
+﻿using System;
+
+namespace PowerballApi.Api.Repositories
 {
 	using System.Collections.Generic;
 	using Helpers.Cacher;
@@ -6,7 +8,7 @@
 	using Helpers.PowerballParser;
 	using Models;
 
-	public class PowerballRepository : IPowerballRepository
+	public class PowerballRepository : IRepository<PowerballSet>
 	{
 		public string CacheName { get; set; } = @"PowerballData";
 		public int DaysUntilStale { get; set; } = 1;
@@ -39,7 +41,17 @@
 			return GetFreshDrawings();
 		}
 
-		private List<PowerballSet> GetFreshDrawings()
+	    public PowerballSet GetById()
+	    {
+	        throw new NotImplementedException();
+	    }
+
+	    public List<PowerballSet> GetByRange()
+	    {
+	        throw new NotImplementedException();
+	    }
+
+	    private List<PowerballSet> GetFreshDrawings()
 		{
 			var file = _httpHandler.GetStringAsync(PowerballUrl).Result;
 			var results = _parser.Parse(file);
