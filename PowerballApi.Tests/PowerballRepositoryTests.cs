@@ -3,7 +3,7 @@
 	using System.Collections.Generic;
 	using Api.Helpers.Cacher;
 	using Api.Helpers.HttpHandler;
-	using Api.Helpers.PowerballParser;
+	using Api.Helpers.Parser;
 	using Api.Models;
 	using Api.Repositories;
 	using Microsoft.VisualStudio.TestTools.UnitTesting;

@@ -2,7 +2,7 @@
 {
 	using System;
 	using System.Collections.Generic;
-	using Api.Helpers.PowerballParser;
+	using Api.Helpers.Parser;
 	using Api.Models;
 	using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -18,7 +18,7 @@
 		}
 
 		[TestMethod]
-		public void WhenFileIsNull_ReturnEmptyList()
+		public void WhenFileIsNull_ReturnArgumentNullException()
 		{
 			try
 			{
@@ -31,7 +31,7 @@
 		}
 
 		[TestMethod]
-		public void WhenFileIsEmpty_ReturnEmptyList()
+		public void WhenFileIsEmpty_ReturnFormatException()
 		{
 			try
 			{
