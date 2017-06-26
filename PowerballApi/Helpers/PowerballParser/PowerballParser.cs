@@ -5,12 +5,15 @@
 	using System.IO;
 	using Models;
 
-	public class PowerballParser : IPowerballParser
+	public class PowerballParser : IFileParser<PowerballSet>
 	{
 		public List<PowerballSet> Parse(string file)
 		{
+			if (file == null)
+				throw new ArgumentNullException();
+
 			if (string.IsNullOrWhiteSpace(file))
-				return new List<PowerballSet>();
+				throw new FormatException();
 
 			var powerballResults = new List<PowerballSet>();
 			using (var reader = new StringReader(file))

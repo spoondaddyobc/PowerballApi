@@ -14,7 +14,7 @@
 	{
 		private ICacher _cacher;
 		private IHttpHandler _httpHandler;
-		private IPowerballParser _parser;
+		private IFileParser<PowerballSet> _parser;
 		private PowerballRepository _sot;
 
 		[TestInitialize]
@@ -22,7 +22,7 @@
 		{
 			_cacher = Substitute.For<ICacher>();
 			_httpHandler = Substitute.For<IHttpHandler>();
-			_parser = Substitute.For<IPowerballParser>();
+			_parser = Substitute.For<IFileParser<PowerballSet>>();
 			_sot = new PowerballRepository(_cacher, _httpHandler, _parser);
 		}
 
@@ -31,7 +31,7 @@
 		{
 			var cacheName = "name";
 			_sot.CacheName = cacheName;
-			_cacher.Get(cacheName).Returns(new List<PowerballSet>() as object);
+			_cacher.Get(cacheName).Returns(new List<PowerballSet>());
 
 			var result = _sot.Get();
 

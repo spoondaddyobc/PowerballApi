@@ -14,7 +14,7 @@
 
 		private readonly ICacher _cacher;
 		private readonly IHttpHandler _httpHandler;
-		private readonly IPowerballParser _parser;
+		private readonly IFileParser<PowerballSet> _parser;
 
 		public PowerballRepository()
 		{
@@ -23,7 +23,7 @@
 			_parser = new PowerballParser();
 		}
 
-		public PowerballRepository(ICacher cacher, IHttpHandler httpHandler, IPowerballParser parser)
+		public PowerballRepository(ICacher cacher, IHttpHandler httpHandler, IFileParser<PowerballSet> parser)
 		{
 			_cacher = cacher;
 			_httpHandler = httpHandler;

@@ -1,5 +1,6 @@
 ﻿namespace PowerballApi.UnitTests.PowerballParser
 {
+	using System;
 	using System.Collections.Generic;
 	using Api.Helpers.PowerballParser;
 	using Api.Models;
@@ -8,7 +9,7 @@
 	[TestClass]
 	public class PowerballParserTests
 	{
-		private IPowerballParser _sot;
+		private IFileParser<PowerballSet> _sot;
 
 		[TestInitialize]
 		public void Initialize()
@@ -19,17 +20,27 @@
 		[TestMethod]
 		public void WhenFileIsNull_ReturnEmptyList()
 		{
-			var result = _sot.Parse(null);
-
-			CollectionAssert.AreEqual(result, new List<PowerballSet>());
+			try
+			{
+				_sot.Parse(null);
+			}
+			catch (Exception ex)
+			{
+				Assert.IsInstanceOfType(ex, typeof(ArgumentNullException));
+			}
 		}
 
 		[TestMethod]
 		public void WhenFileIsEmpty_ReturnEmptyList()
 		{
-			var result = _sot.Parse(string.Empty);
-
-			CollectionAssert.AreEqual(result, new List<PowerballSet>());
+			try
+			{
+				_sot.Parse(string.Empty);
+			}
+			catch (Exception ex)
+			{
+				Assert.IsInstanceOfType(ex, typeof(FormatException));
+			}
 		}
 
 		[TestMethod]

@@ -1,10 +1,9 @@
 ﻿namespace PowerballApi.Api.Helpers.PowerballParser
 {
 	using System.Collections.Generic;
-	using Models;
 
-	public interface IPowerballParser
+	public interface IFileParser<T> where T : class 
 	{
-		List<PowerballSet> Parse(string file);
+		List<T> Parse(string file);
 	}
 }
