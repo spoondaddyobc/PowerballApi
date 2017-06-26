@@ -18,7 +18,7 @@
 		}
 
 		[TestMethod]
-		public void WhenFileIsNull_ReturnEmptyList()
+		public void Parse_WhenFileIsNull_ReturnArgumentNullException()
 		{
 			try
 			{
@@ -31,7 +31,7 @@
 		}
 
 		[TestMethod]
-		public void WhenFileIsEmpty_ReturnEmptyList()
+		public void Parse_WhenFileIsEmpty_ReturnFormatException()
 		{
 			try
 			{
@@ -44,7 +44,7 @@
 		}
 
 		[TestMethod]
-		public void WhenDataLineIsTooShort_SkipThatLine()
+		public void Parse_WhenFileLineIsTooShort_SkipThatLine()
 		{
 			var file = PowerballDrawings.DataLineTooShort;
 
@@ -54,7 +54,7 @@
 		}
 
 		[TestMethod]
-		public void WhenGoodDataSet_ReturnPowerballResults()
+		public void Parse_WhenGoodFileFormat_ReturnPowerballResults()
 		{
 			var file = PowerballDrawings.GoodFileFormat;
 

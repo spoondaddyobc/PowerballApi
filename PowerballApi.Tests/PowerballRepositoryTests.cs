@@ -27,7 +27,7 @@
 		}
 
 		[TestMethod]
-		public void OnGet_WhenCacheExists_ReturnCache()
+		public void Get_WhenCacheExists_ReturnCache()
 		{
 			const string cacheName = "name";
 			_sut.CacheName = cacheName;
@@ -40,7 +40,7 @@
 		}
 
 		[TestMethod]
-		public void OnGet_WhenCacheIsNull_GetPowerballDrawings()
+		public void Get_WhenCacheIsNull_GetPowerballDrawings()
 		{
 			const string cacheName = "name";
 			const int daysUntilStale = 1;

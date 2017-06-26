@@ -13,6 +13,11 @@
 			_repository = new PowerballRepository();
 		}
 
+		public PowerballController(IPowerballRepository repository)
+		{
+			_repository = repository;
+		}
+
 		[HttpGet]
 		public IHttpActionResult PowerballResults()
 		{
