@@ -8,18 +8,18 @@
 	[TestClass]
 	public class PowerballParserTests
 	{
-		private IPowerballParser _sot;
+		private IPowerballParser _sut;
 
 		[TestInitialize]
 		public void Initialize()
 		{
-			_sot = new PowerballParser();
+			_sut = new PowerballParser();
 		}
 
 		[TestMethod]
 		public void WhenFileIsNull_ReturnEmptyList()
 		{
-			var result = _sot.Parse(null);
+			var result = _sut.Parse(null);
 
 			CollectionAssert.AreEqual(result, new List<PowerballSet>());
 		}
@@ -27,7 +27,7 @@
 		[TestMethod]
 		public void WhenFileIsEmpty_ReturnEmptyList()
 		{
-			var result = _sot.Parse(string.Empty);
+			var result = _sut.Parse(string.Empty);
 
 			CollectionAssert.AreEqual(result, new List<PowerballSet>());
 		}
@@ -37,7 +37,7 @@
 		{
 			var file = PowerballDrawings.DataLineTooShort;
 
-			var result = _sot.Parse(file);
+			var result = _sut.Parse(file);
 
 			CollectionAssert.AreEqual(result, new List<PowerballSet>());
 		}
@@ -47,7 +47,7 @@
 		{
 			var file = PowerballDrawings.GoodFileFormat;
 
-			var result = _sot.Parse(file)[0];
+			var result = _sut.Parse(file)[0];
 
 			Assert.AreEqual(result.Date, "01/01/2000");
 			Assert.AreEqual(result.WinNumbers[0], 1);
