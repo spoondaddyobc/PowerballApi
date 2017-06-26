@@ -9,7 +9,11 @@
 	[TestClass]
 	public class PowerballParserTests
 	{
-		private IFileParser<PowerballSet> _sut;
+<<<<<<< HEAD
+		private IFileParser<PowerballSet> _sot;
+=======
+		private IPowerballParser _sut;
+>>>>>>> d7f7950f56c69e31954c8986ae5423f34a29d103
 
 		[TestInitialize]
 		public void Initialize()
@@ -20,27 +24,39 @@
 		[TestMethod]
 		public void WhenFileIsNull_ReturnEmptyList()
 		{
+<<<<<<< HEAD
 			try
 			{
-				_sut.Parse(null);
+				_sot.Parse(null);
 			}
 			catch (Exception ex)
 			{
 				Assert.IsInstanceOfType(ex, typeof(ArgumentNullException));
 			}
+=======
+			var result = _sut.Parse(null);
+
+			CollectionAssert.AreEqual(result, new List<PowerballSet>());
+>>>>>>> d7f7950f56c69e31954c8986ae5423f34a29d103
 		}
 
 		[TestMethod]
 		public void WhenFileIsEmpty_ReturnEmptyList()
 		{
+<<<<<<< HEAD
 			try
 			{
-				_sut.Parse(string.Empty);
+				_sot.Parse(string.Empty);
 			}
 			catch (Exception ex)
 			{
 				Assert.IsInstanceOfType(ex, typeof(FormatException));
 			}
+=======
+			var result = _sut.Parse(string.Empty);
+
+			CollectionAssert.AreEqual(result, new List<PowerballSet>());
+>>>>>>> d7f7950f56c69e31954c8986ae5423f34a29d103
 		}
 
 		[TestMethod]
