@@ -3,11 +3,11 @@ using System.Linq;
 
 namespace PowerballApi.Api.Repositories
 {
-	using System.Collections.Generic;
-	using Helpers.Cacher;
-	using Helpers.HttpHandler;
-	using Helpers.Parser;
-	using Models;
+    using System.Collections.Generic;
+    using Helpers.Cacher;
+    using Helpers.HttpHandler;
+    using Helpers.Parser;
+    using Models;
 
     public class PowerballRepository : IRepository<PowerballSet>
     {
@@ -15,9 +15,9 @@ namespace PowerballApi.Api.Repositories
         public int DaysUntilStale { get; set; } = 1;
         public string PowerballUrl { get; set; } = @"http://www.powerball.com/powerball/winnums-text.txt";
 
-		private readonly ICacher _cacher;
-		private readonly IHttpHandler _httpHandler;
-		private readonly IParser<PowerballSet, string> _parser;
+        private readonly ICacher _cacher;
+        private readonly IHttpHandler _httpHandler;
+        private readonly IParser<PowerballSet, string> _parser;
 
         public PowerballRepository()
         {
@@ -26,12 +26,12 @@ namespace PowerballApi.Api.Repositories
             _parser = new PowerballParser();
         }
 
-		public PowerballRepository(ICacher cacher, IHttpHandler httpHandler, IParser<PowerballSet, string> parser)
-		{
-			_cacher = cacher;
-			_httpHandler = httpHandler;
-			_parser = parser;
-		}
+        public PowerballRepository(ICacher cacher, IHttpHandler httpHandler, IParser<PowerballSet, string> parser)
+        {
+            _cacher = cacher;
+            _httpHandler = httpHandler;
+            _parser = parser;
+        }
 
         public List<PowerballSet> Get()
         {
@@ -59,16 +59,17 @@ namespace PowerballApi.Api.Repositories
         private List<PowerballSet> GetDrawings()
         {
             var cache = _cacher.Get(CacheName);
-            if(cache != null)
+            List<PowerballSet> results;
+            if (cache != null)
             {
-                var results = (List<PowerballSet>)cache;
+                results = (List<PowerballSet>)cache;
             }
             else
             {
                 var file = _httpHandler.GetStringAsync(PowerballUrl).Result;
-                var results = _parser.Parse(file);
+                results = _parser.Parse(file);
                 _cacher.Set(CacheName, results, DaysUntilStale);
-            }            
+            }
             return results;
         }
     }

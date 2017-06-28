@@ -16,7 +16,7 @@ namespace PowerballApi.Api.Controllers
 			_repository = new PowerballRepository();
 		}
 
-		public PowerballController(IPowerballRepository repository)
+		public PowerballController(IRepository<PowerballSet> repository)
 		{
 			_repository = repository;
 		}
