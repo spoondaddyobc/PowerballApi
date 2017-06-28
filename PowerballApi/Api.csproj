@@ -97,7 +97,7 @@
     <Compile Include="Helpers\HttpHandler\HttpHandler.cs" />
     <Compile Include="Helpers\Cacher\ICacher.cs" />
     <Compile Include="Helpers\HttpHandler\IHttpHandler.cs" />
-    <Compile Include="Helpers\Parser\IFileParser.cs" />
+    <Compile Include="Helpers\Parser\IParser.cs" />
     <Compile Include="Helpers\Parser\PowerballParser.cs" />
     <Compile Include="Models\PowerballSet.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

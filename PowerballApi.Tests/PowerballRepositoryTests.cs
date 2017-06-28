@@ -14,7 +14,7 @@
 	{
 		private ICacher _cacher;
 		private IHttpHandler _httpHandler;
-		private IFileParser<PowerballSet> _parser;
+		private IParser<PowerballSet, string> _parser;
 		private PowerballRepository _sut;
 
 		[TestInitialize]
@@ -22,7 +22,7 @@
 		{
 			_cacher = Substitute.For<ICacher>();
 			_httpHandler = Substitute.For<IHttpHandler>();
-			_parser = Substitute.For<IFileParser<PowerballSet>>();
+			_parser = Substitute.For<IParser<PowerballSet, string>>();
 			_sut = new PowerballRepository(_cacher, _httpHandler, _parser);
 		}
 

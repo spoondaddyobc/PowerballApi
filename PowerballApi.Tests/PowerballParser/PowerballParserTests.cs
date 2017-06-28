@@ -9,7 +9,7 @@
 	[TestClass]
 	public class PowerballParserTests
 	{
-		private IFileParser<PowerballSet> _sut;
+		private IParser<PowerballSet, string> _sut;
 
 		[TestInitialize]
 		public void Initialize()
