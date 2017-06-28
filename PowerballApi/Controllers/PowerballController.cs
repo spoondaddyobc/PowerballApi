@@ -16,6 +16,11 @@ namespace PowerballApi.Api.Controllers
 			_repository = new PowerballRepository();
 		}
 
+		public PowerballController(IPowerballRepository repository)
+		{
+			_repository = repository;
+		}
+
 		[HttpGet]
 		public IHttpActionResult PowerballResults()
 		{

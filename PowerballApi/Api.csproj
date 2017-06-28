@@ -34,6 +34,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -96,8 +97,8 @@
     <Compile Include="Helpers\HttpHandler\HttpHandler.cs" />
     <Compile Include="Helpers\Cacher\ICacher.cs" />
     <Compile Include="Helpers\HttpHandler\IHttpHandler.cs" />
-    <Compile Include="Helpers\PowerballParser\IPowerballParser.cs" />
-    <Compile Include="Helpers\PowerballParser\PowerballParser.cs" />
+    <Compile Include="Helpers\Parser\IParser.cs" />
+    <Compile Include="Helpers\Parser\PowerballParser.cs" />
     <Compile Include="Models\PowerballSet.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\IRepository.cs" />

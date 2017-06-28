@@ -1,16 +1,19 @@
-﻿namespace PowerballApi.Api.Helpers.PowerballParser
+﻿namespace PowerballApi.Api.Helpers.Parser
 {
 	using System;
 	using System.Collections.Generic;
 	using System.IO;
 	using Models;
 
-	public class PowerballParser : IPowerballParser
+	public class PowerballParser : IParser<PowerballSet, string>
 	{
 		public List<PowerballSet> Parse(string file)
 		{
+			if (file == null)
+				throw new ArgumentNullException();
+
 			if (string.IsNullOrWhiteSpace(file))
-				return new List<PowerballSet>();
+				throw new FormatException();
 
 			var powerballResults = new List<PowerballSet>();
 			using (var reader = new StringReader(file))

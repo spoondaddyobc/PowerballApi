@@ -3,7 +3,7 @@
 	using System.Collections.Generic;
 	using Api.Helpers.Cacher;
 	using Api.Helpers.HttpHandler;
-	using Api.Helpers.PowerballParser;
+	using Api.Helpers.Parser;
 	using Api.Models;
 	using Api.Repositories;
 	using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -14,47 +14,48 @@
 	{
 		private ICacher _cacher;
 		private IHttpHandler _httpHandler;
-		private IPowerballParser _parser;
-		private PowerballRepository _sot;
+		private IParser<PowerballSet, string> _parser;
+		private PowerballRepository _sut;
 
 		[TestInitialize]
 		public void Initialize()
 		{
 			_cacher = Substitute.For<ICacher>();
 			_httpHandler = Substitute.For<IHttpHandler>();
-			_parser = Substitute.For<IPowerballParser>();
-			_sot = new PowerballRepository(_cacher, _httpHandler, _parser);
+			_parser = Substitute.For<IParser<PowerballSet, string>>();
+			_sut = new PowerballRepository(_cacher, _httpHandler, _parser);
 		}
 
 		[TestMethod]
-		public void OnGet_WhenCacheExists_ReturnCache()
+		public void Get_WhenCacheExists_ReturnCache()
 		{
-			var cacheName = "name";
-			_sot.CacheName = cacheName;
-			_cacher.Get(cacheName).Returns(new List<PowerballSet>() as object);
+			const string cacheName = "name";
+			_sut.CacheName = cacheName;
+			_cacher.Get(cacheName).Returns(new List<PowerballSet>());
 
-			var result = _sot.Get();
+			var result = _sut.Get();
 
 			CollectionAssert.AreEqual(result, new List<PowerballSet>());
 			_httpHandler.DidNotReceive().GetStringAsync(Arg.Any<string>());
 		}
 
 		[TestMethod]
-		public void OnGet_WhenCacheIsNull_GetPowerballDrawings()
+		public void Get_WhenCacheIsNull_GetPowerballDrawings()
 		{
-			var cacheName = "name";
-			var daysUntilStale = 1;
+			const string cacheName = "name";
+			const int daysUntilStale = 1;
+			const string file = "file";
+			const string url = "url";
 			var expected = new List<PowerballSet>();
-			var file = "file";
-			var url = "url";
-			_sot.CacheName = cacheName;
-			_sot.DaysUntilStale = daysUntilStale;
-			_sot.PowerballUrl = url;
+			
+			_sut.CacheName = cacheName;
+			_sut.DaysUntilStale = daysUntilStale;
+			_sut.PowerballUrl = url;
 			_cacher.Get(Arg.Any<string>()).Returns(null);
 			_httpHandler.GetStringAsync(url).Returns(file);
 			_parser.Parse(file).Returns(expected);
 
-			var actual = _sot.Get();
+			var actual = _sut.Get();
 
 			_cacher.Received().Set(cacheName, expected, daysUntilStale);
 			CollectionAssert.AreEqual(actual, expected);

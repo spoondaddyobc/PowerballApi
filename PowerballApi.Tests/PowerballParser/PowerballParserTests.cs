@@ -1,53 +1,64 @@
 ﻿namespace PowerballApi.UnitTests.PowerballParser
 {
+	using System;
 	using System.Collections.Generic;
-	using Api.Helpers.PowerballParser;
+	using Api.Helpers.Parser;
 	using Api.Models;
 	using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 	[TestClass]
 	public class PowerballParserTests
 	{
-		private IPowerballParser _sot;
+		private IParser<PowerballSet, string> _sut;
 
 		[TestInitialize]
 		public void Initialize()
 		{
-			_sot = new PowerballParser();
+			_sut = new PowerballParser();
 		}
 
 		[TestMethod]
-		public void WhenFileIsNull_ReturnEmptyList()
+		public void Parse_WhenFileIsNull_ReturnArgumentNullException()
 		{
-			var result = _sot.Parse(null);
-
-			CollectionAssert.AreEqual(result, new List<PowerballSet>());
+			try
+			{
+				_sut.Parse(null);
+			}
+			catch (Exception ex)
+			{
+				Assert.IsInstanceOfType(ex, typeof(ArgumentNullException));
+			}
 		}
 
 		[TestMethod]
-		public void WhenFileIsEmpty_ReturnEmptyList()
+		public void Parse_WhenFileIsEmpty_ReturnFormatException()
 		{
-			var result = _sot.Parse(string.Empty);
-
-			CollectionAssert.AreEqual(result, new List<PowerballSet>());
+			try
+			{
+				_sut.Parse(string.Empty);
+			}
+			catch (Exception ex)
+			{
+				Assert.IsInstanceOfType(ex, typeof(FormatException));
+			}
 		}
 
 		[TestMethod]
-		public void WhenDataLineIsTooShort_SkipThatLine()
+		public void Parse_WhenFileLineIsTooShort_SkipThatLine()
 		{
 			var file = PowerballDrawings.DataLineTooShort;
 
-			var result = _sot.Parse(file);
+			var result = _sut.Parse(file);
 
 			CollectionAssert.AreEqual(result, new List<PowerballSet>());
 		}
 
 		[TestMethod]
-		public void WhenGoodDataSet_ReturnPowerballResults()
+		public void Parse_WhenGoodFileFormat_ReturnPowerballResults()
 		{
 			var file = PowerballDrawings.GoodFileFormat;
 
-			var result = _sot.Parse(file)[0];
+			var result = _sut.Parse(file)[0];
 
 			Assert.AreEqual(result.Date, "01/01/2000");
 			Assert.AreEqual(result.WinNumbers[0], 1);
