@@ -35,52 +35,40 @@ namespace PowerballApi.Api.Repositories
 
         public List<PowerballSet> Get()
         {
-            var cache = _cacher.Get(CacheName);
-            if (cache != null)
-                return (List<PowerballSet>)cache;
-
-            return GetFreshDrawings();
+            return GetDrawings();
         }
 
         public PowerballSet GetById(string id)
         {
-            var cache = _cacher.Get(CacheName);
-            List<PowerballSet> dataSet;
-            if (cache != null)
-            {
-                dataSet = (List<PowerballSet>)cache;
-            }
-            else
-            {
-                dataSet = GetFreshDrawings();
-            }
-            var result = dataSet.FirstOrDefault(p => p.Date == id);
+            var data = GetDrawings();
+
+            var result = data.FirstOrDefault(p => p.Date == id);
             return result;
         }
 
         public List<PowerballSet> GetByRange(string idBegin, string idEnd)
         {
-            var cache = _cacher.Get(CacheName);
-            List<PowerballSet> dataSet;
-            if (cache != null)
-            {
-                dataSet = (List<PowerballSet>)cache;
-            }
-            else
-            {
-                dataSet = GetFreshDrawings();
-            }
+            var data = GetDrawings();
 
-            var upperLimit = dataSet.FindAll(p => DateTime.Parse(p.Date) >= DateTime.Parse(idBegin));
+            var upperLimit = data.FindAll(p => DateTime.Parse(p.Date) >= DateTime.Parse(idBegin));
             var results = upperLimit.FindAll(p => DateTime.Parse(p.Date) <= DateTime.Parse(idEnd));
+
             return results.ToList();
         }
 
-        private List<PowerballSet> GetFreshDrawings()
+        private List<PowerballSet> GetDrawings()
         {
-            var file = _httpHandler.GetStringAsync(PowerballUrl).Result;
-            var results = _parser.Parse(file);
-            _cacher.Set(CacheName, results, DaysUntilStale);
+            var cache = _cacher.Get(CacheName);
+            if(cache != null)
+            {
+                var results = (List<PowerballSet>)cache;
+            }
+            else
+            {
+                var file = _httpHandler.GetStringAsync(PowerballUrl).Result;
+                var results = _parser.Parse(file);
+                _cacher.Set(CacheName, results, DaysUntilStale);
+            }            
             return results;
         }
     }
