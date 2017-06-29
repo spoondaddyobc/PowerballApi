@@ -1,13 +1,12 @@
-﻿using System;
-using System.Linq;
-
-namespace PowerballApi.Api.Repositories
+﻿namespace PowerballApi.Api.Repositories
 {
     using System.Collections.Generic;
     using Helpers.Cacher;
     using Helpers.HttpHandler;
     using Helpers.Parser;
     using Models;
+    using System;
+    using System.Linq;
 
     public class PowerballRepository : IRepository<PowerballSet>
     {
@@ -40,19 +39,36 @@ namespace PowerballApi.Api.Repositories
 
         public PowerballSet GetById(string id)
         {
-            var data = GetDrawings();
+            DateTime dateId;
+            if (!DateTime.TryParse(id, out dateId))
+                return null;
 
-            var result = data.FirstOrDefault(p => p.Date == id);
-            return result;
+            var data = GetDrawings();
+            try
+            {
+                return data.SingleOrDefault(p => p.Date == id);
+            }
+            catch (InvalidOperationException ex)
+            {
+
+                throw new InvalidOperationException("More than one value found for date given.", ex);
+            }
         }
 
         public List<PowerballSet> GetByRange(string idBegin, string idEnd)
         {
+            DateTime dateBegin;
+            DateTime dateEnd;
+
+            if (!DateTime.TryParse(idBegin, out dateBegin) || !DateTime.TryParse(idEnd, out dateEnd))
+                return null;
+
             var data = GetDrawings();
-
-            var upperLimit = data.FindAll(p => DateTime.Parse(p.Date) >= DateTime.Parse(idBegin));
-            var results = upperLimit.FindAll(p => DateTime.Parse(p.Date) <= DateTime.Parse(idEnd));
-
+            var results =
+                data.FindAll(
+                    p =>
+                        (dateBegin <= DateTime.Parse(p.Date) &&
+                         DateTime.Parse(p.Date) <= dateEnd));
             return results.ToList();
         }
 
@@ -61,9 +77,7 @@ namespace PowerballApi.Api.Repositories
             var cache = _cacher.Get(CacheName);
             List<PowerballSet> results;
             if (cache != null)
-            {
                 results = (List<PowerballSet>)cache;
-            }
             else
             {
                 var file = _httpHandler.GetStringAsync(PowerballUrl).Result;

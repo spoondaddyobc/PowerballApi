@@ -1,7 +1,4 @@
-﻿using System.Runtime.InteropServices.ComTypes;
-
-
-namespace PowerballApi.Api.Controllers
+﻿namespace PowerballApi.Api.Controllers
 {
 	using System.Linq;
 	using System.Web.Http;
