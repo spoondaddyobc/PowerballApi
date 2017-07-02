@@ -41,7 +41,7 @@
         {
             DateTime dateId;
             if (!DateTime.TryParse(id, out dateId))
-                return null;
+                throw new ArgumentException("Invalid Date Arugument passed.");
 
             var data = GetDrawings();
 
@@ -87,15 +87,12 @@
         private List<PowerballSet> GetDrawings()
         {
             var cache = _cacher.Get(CacheName);
-            List<PowerballSet> results;
             if (cache != null)
-                results = (List<PowerballSet>)cache;
-            else
-            {
-                var file = _httpHandler.GetStringAsync(PowerballUrl).Result;
-                results = _parser.Parse(file);
-                _cacher.Set(CacheName, results, DaysUntilStale);
-            }
+                return (List<PowerballSet>)cache;
+            
+            var file = _httpHandler.GetStringAsync(PowerballUrl).Result;
+            var results = _parser.Parse(file);
+            _cacher.Set(CacheName, results, DaysUntilStale);
             return results;
         }
     }
