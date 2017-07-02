@@ -44,9 +44,14 @@
                 return null;
 
             var data = GetDrawings();
+
             try
             {
                 return data.SingleOrDefault(p => p.Date == id);
+            }
+            catch (NullReferenceException ex)
+            {
+                throw new NullReferenceException("The drawings list was null", ex);
             }
             catch (InvalidOperationException ex)
             {
@@ -64,12 +69,19 @@
                 return null;
 
             var data = GetDrawings();
-            var results =
-                data.FindAll(
-                    p =>
-                        (dateBegin <= DateTime.Parse(p.Date) &&
-                         DateTime.Parse(p.Date) <= dateEnd));
-            return results.ToList();
+            try
+            {
+                var results =
+                    data.FindAll(
+                        p =>
+                            (dateBegin <= DateTime.Parse(p.Date) &&
+                             DateTime.Parse(p.Date) <= dateEnd));
+                return results.ToList();
+            }
+            catch (NullReferenceException ex)
+            {
+                throw new NullReferenceException("The drawings list was null", ex);
+            }
         }
 
         private List<PowerballSet> GetDrawings()
