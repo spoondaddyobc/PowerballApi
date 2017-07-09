@@ -64,7 +64,7 @@ namespace PowerballApi.Api.Repositories
             DateTime dateEnd;
 
             if (!DateTime.TryParse(idBegin, out dateBegin) || !DateTime.TryParse(idEnd, out dateEnd))
-                return null;
+                throw new ArgumentException("One or both date inputs were invalid.");
 
             var data = GetDrawings();
             try
