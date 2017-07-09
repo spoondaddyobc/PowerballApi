@@ -1,7 +1,4 @@
-﻿using System.Net;
-using System.Web.Http;
-
-namespace PowerballApi.Api.Repositories
+﻿namespace PowerballApi.Api.Repositories
 {
     using System.Collections.Generic;
     using Helpers.Cacher;
