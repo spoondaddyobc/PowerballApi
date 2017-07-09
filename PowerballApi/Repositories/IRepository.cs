@@ -5,7 +5,7 @@
     {
         List<T> Get();
 
-        T GetById(string id);
+        T Get(string id);
 
         List<T> GetByRange(string idStart, string idEnd);
     }

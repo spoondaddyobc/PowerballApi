@@ -1,4 +1,7 @@
-﻿namespace PowerballApi.Api.Repositories
+﻿using System.Net;
+using System.Web.Http;
+
+namespace PowerballApi.Api.Repositories
 {
     using System.Collections.Generic;
     using Helpers.Cacher;
@@ -37,11 +40,11 @@
             return GetDrawings();
         }
 
-        public PowerballSet GetById(string id)
+        public PowerballSet Get(string id)
         {
             DateTime dateId;
             if (!DateTime.TryParse(id, out dateId))
-                throw new ArgumentException("Invalid Date Arugument passed.");
+                throw new ArgumentException("The date input was invalid");
 
             var data = GetDrawings();
 
@@ -49,14 +52,9 @@
             {
                 return data.SingleOrDefault(p => p.Date == id);
             }
-            catch (NullReferenceException ex)
+            catch (Exception ex)
             {
-                throw new NullReferenceException("The drawings list was null", ex);
-            }
-            catch (InvalidOperationException ex)
-            {
-
-                throw new InvalidOperationException("More than one value found for date given.", ex);
+                throw new Exception("Could not process the request.", ex);
             }
         }
 
@@ -76,11 +74,11 @@
                         p =>
                             (dateBegin <= DateTime.Parse(p.Date) &&
                              DateTime.Parse(p.Date) <= dateEnd));
-                return results.ToList();
+                return results;
             }
-            catch (NullReferenceException ex)
+            catch (Exception ex)
             {
-                throw new NullReferenceException("The drawings list was null", ex);
+                throw new Exception("Could not process the request", ex);
             }
         }
 
