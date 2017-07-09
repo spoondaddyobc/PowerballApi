@@ -11,13 +11,13 @@
 	[TestClass]
 	public class PowerballControllerTests
 	{
-		private IPowerballRepository _repository;
+		private IRepository<PowerballSet> _repository;
 		private PowerballController _sut;
 
 		[TestInitialize]
 		public void MyTestInitialize()
 		{
-			_repository = Substitute.For<IPowerballRepository>();
+			_repository = Substitute.For<IRepository<PowerballSet>>();
 			_sut = new PowerballController(_repository);
 		}
 

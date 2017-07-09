@@ -3,17 +3,17 @@
 	using System.Linq;
 	using System.Web.Http;
 	using Repositories;
-
-	public class PowerballController : ApiController
+    using Models;
+    public class PowerballController : ApiController
 	{
-		private readonly IPowerballRepository _repository;
+		private readonly IRepository<PowerballSet> _repository;
 
 		public PowerballController()
 		{
 			_repository = new PowerballRepository();
 		}
 
-		public PowerballController(IPowerballRepository repository)
+		public PowerballController(IRepository<PowerballSet> repository)
 		{
 			_repository = repository;
 		}
