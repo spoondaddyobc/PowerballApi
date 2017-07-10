@@ -62,11 +62,32 @@ namespace PowerballApi.UnitTests.PowerballParser {
         
         /// <summary>
         ///   Looks up a localized string similar to Draw Date   WB1 WB2 WB3 WB4 WB5 PB  PP
+        ///01/50/2000  1  2  3  4  5  6  7.
+        /// </summary>
+        internal static string DataLineHasInvalidDate {
+            get {
+                return ResourceManager.GetString("DataLineHasInvalidDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Draw Date   WB1 WB2 WB3 WB4 WB5 PB  PP
         ///01/01/2000  1  2  3  4  5  6.
         /// </summary>
         internal static string DataLineTooShort {
             get {
                 return ResourceManager.GetString("DataLineTooShort", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Draw Date   WB1 WB2 WB3 WB4 WB5 PB  PP
+        ///01/01/2000  1  2  3  4  5  6  7
+        ///01/01/2000  1  2  3  4  5  6  7.
+        /// </summary>
+        internal static string FileContainsDuplicateDates {
+            get {
+                return ResourceManager.GetString("FileContainsDuplicateDates", resourceCulture);
             }
         }
         

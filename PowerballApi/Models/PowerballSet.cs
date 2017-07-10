@@ -1,8 +1,10 @@
 ﻿namespace PowerballApi.Api.Models
 {
+	using System;
+
 	public class PowerballSet
 	{
-		public string Date { get; set; }
+		public DateTime Date { get; set; }
 		public int PowerPlay { get; set; }
 		public int[] WinNumbers { get; set; }
 
