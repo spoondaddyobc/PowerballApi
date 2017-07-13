@@ -84,9 +84,9 @@
 		}
 
 		[TestMethod]
-		public void Parse_WhenGoodFileFormat_ReturnPowerballResults()
+		public void Parse_WhenFileLineHasPowerplay_ReturnAllPowerballResults()
 		{
-			var file = PowerballDrawings.GoodFileFormat;
+			var file = PowerballDrawings.DataLineWithPowerplay;
 
 			var result = _sut.Parse(file)[0];
 
@@ -98,6 +98,17 @@
 			Assert.AreEqual(result.WinNumbers[4], 5);
 			Assert.AreEqual(result.WinNumbers[5], 6);
 			Assert.AreEqual(result.PowerPlay, 7);
+		}
+
+		[TestMethod]
+		public void Parse_WhenFileLineLacksPowerplay_ReturnResultsWithoutPowerplay()
+		{
+			var file = PowerballDrawings.DataLineWithoutPowerplay;
+
+			var result = _sut.Parse(file)[0];
+
+			Assert.IsNotNull(result);
+			Assert.IsNull(result.PowerPlay);
 		}
 	}
 }

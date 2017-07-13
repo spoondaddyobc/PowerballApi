@@ -30,7 +30,7 @@
 					}
 
 					var dataLine = line.Split((string[])null, StringSplitOptions.RemoveEmptyEntries);
-					if (dataLine.Length < 8)
+					if (dataLine.Length < 7)
 						continue;
 
 					DateTime date;
@@ -42,7 +42,7 @@
 					powerballResults.Add(new PowerballSet
 					{
 						Date = date,
-						PowerPlay = int.Parse(dataLine[7]),
+						PowerPlay = dataLine.Length > 7 ? int.Parse(dataLine[7]) : (int?)null,
 						WinNumbers =
 						{
 							[0] = int.Parse(dataLine[1]),

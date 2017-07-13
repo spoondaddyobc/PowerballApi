@@ -123,15 +123,19 @@
   </data>
   <data name="DataLineTooShort" xml:space="preserve">
     <value>Draw Date   WB1 WB2 WB3 WB4 WB5 PB  PP
+01/01/2000  1  2  3  4  5</value>
+  </data>
+  <data name="DataLineWithoutPowerplay" xml:space="preserve">
+    <value>Draw Date   WB1 WB2 WB3 WB4 WB5 PB  PP
 01/01/2000  1  2  3  4  5  6</value>
+  </data>
+  <data name="DataLineWithPowerplay" xml:space="preserve">
+    <value>Draw Date   WB1 WB2 WB3 WB4 WB5 PB  PP
+01/01/2000  1  2  3  4  5  6  7</value>
   </data>
   <data name="FileContainsDuplicateDates" xml:space="preserve">
     <value>Draw Date   WB1 WB2 WB3 WB4 WB5 PB  PP
 01/01/2000  1  2  3  4  5  6  7
-01/01/2000  1  2  3  4  5  6  7</value>
-  </data>
-  <data name="GoodFileFormat" xml:space="preserve">
-    <value>Draw Date   WB1 WB2 WB3 WB4 WB5 PB  PP
 01/01/2000  1  2  3  4  5  6  7</value>
   </data>
 </root>
