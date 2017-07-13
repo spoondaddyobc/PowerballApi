@@ -54,13 +54,43 @@
 		}
 
 		[TestMethod]
-		public void Parse_WhenGoodFileFormat_ReturnPowerballResults()
+		public void Parse_WhenFileLineHasAnInvalidDate_ReturnFormatException()
 		{
-			var file = PowerballDrawings.GoodFileFormat;
+			var file = PowerballDrawings.DataLineHasInvalidDate;
+
+			try
+			{
+				_sut.Parse(file);
+			}
+			catch (Exception ex)
+			{
+				Assert.IsInstanceOfType(ex, typeof(FormatException));
+			}
+		}
+
+		[TestMethod]
+		public void Parse_WhenFileLinesContainTheSameDate_ReturnFormatException()
+		{
+			var file = PowerballDrawings.FileContainsDuplicateDates;
+
+			try
+			{
+				_sut.Parse(file);
+			}
+			catch (Exception ex)
+			{
+				Assert.IsInstanceOfType(ex, typeof(FormatException));
+			}
+		}
+
+		[TestMethod]
+		public void Parse_WhenFileLineHasPowerplay_ReturnAllPowerballResults()
+		{
+			var file = PowerballDrawings.DataLineWithPowerplay;
 
 			var result = _sut.Parse(file)[0];
 
-			Assert.AreEqual(result.Date, "01/01/2000");
+			Assert.AreEqual(result.Date, Convert.ToDateTime("01/01/2000"));
 			Assert.AreEqual(result.WinNumbers[0], 1);
 			Assert.AreEqual(result.WinNumbers[1], 2);
 			Assert.AreEqual(result.WinNumbers[2], 3);
@@ -68,6 +98,17 @@
 			Assert.AreEqual(result.WinNumbers[4], 5);
 			Assert.AreEqual(result.WinNumbers[5], 6);
 			Assert.AreEqual(result.PowerPlay, 7);
+		}
+
+		[TestMethod]
+		public void Parse_WhenFileLineLacksPowerplay_ReturnResultsWithoutPowerplay()
+		{
+			var file = PowerballDrawings.DataLineWithoutPowerplay;
+
+			var result = _sut.Parse(file)[0];
+
+			Assert.IsNotNull(result);
+			Assert.IsNull(result.PowerPlay);
 		}
 	}
 }
