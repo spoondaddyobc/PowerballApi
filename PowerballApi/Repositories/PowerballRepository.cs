@@ -47,7 +47,7 @@
 
             try
             {
-                return data.SingleOrDefault(p => p.Date == id);
+                return data.SingleOrDefault(p => DateTime.Parse(p.Date) == dateId);
             }
             catch (Exception ex)
             {
