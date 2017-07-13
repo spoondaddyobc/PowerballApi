@@ -3,7 +3,6 @@
 	using System;
 	using System.Collections.Generic;
 	using System.IO;
-	using System.Linq;
 	using Models;
 
 	public class PowerballParser : IParser<PowerballSet, string>
@@ -21,6 +20,8 @@
 			{
 				string line;
 				var isFirstLine = true;
+				var drawingDates = new HashSet<DateTime>();
+
 				while ((line = reader.ReadLine()) != null)
 				{
 					if (isFirstLine)
@@ -36,8 +37,10 @@
 					DateTime date;
 					if (!DateTime.TryParse(dataLine[0], out date))
 						throw new FormatException(@"Powerball data contains a drawing with an invalid date.");
-					if (powerballResults.Any(p => p.Date == date))
+
+					if (drawingDates.Contains(date))
 						throw new FormatException(@"Powerball data contains more than one drawing with the same date.");
+					drawingDates.Add(date);
 
 					powerballResults.Add(new PowerballSet
 					{
