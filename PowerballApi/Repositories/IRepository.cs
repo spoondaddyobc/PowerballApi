@@ -4,9 +4,7 @@
     public interface IRepository<T> where T : class
     {
         List<T> Get();
-
         T Get(string id);
-
         List<T> GetByRange(string idStart, string idEnd);
     }
 }

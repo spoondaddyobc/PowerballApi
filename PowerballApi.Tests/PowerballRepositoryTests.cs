@@ -2,10 +2,10 @@
 {
 	using System.Collections.Generic;
 	using Api.Helpers.Cacher;
-	using Api.Helpers.HttpHandler;
 	using Api.Helpers.Parser;
 	using Api.Models;
 	using Api.Repositories;
+	using Api.Services;
 	using Microsoft.VisualStudio.TestTools.UnitTesting;
 	using NSubstitute;
 
@@ -13,17 +13,17 @@
 	public class PowerballRepositoryTests
 	{
 		private ICacher _cacher;
-		private IHttpHandler _httpHandler;
 		private IParser<PowerballSet, string> _parser;
+		private IService _service;
 		private PowerballRepository _sut;
 
 		[TestInitialize]
 		public void Initialize()
 		{
 			_cacher = Substitute.For<ICacher>();
-			_httpHandler = Substitute.For<IHttpHandler>();
 			_parser = Substitute.For<IParser<PowerballSet, string>>();
-			_sut = new PowerballRepository(_cacher, _httpHandler, _parser);
+			_service = Substitute.For<IService>();
+			_sut = new PowerballRepository(_cacher, _parser, _service);
 		}
 
 		[TestMethod]
@@ -36,7 +36,7 @@
 			var result = _sut.Get();
 
 			CollectionAssert.AreEqual(result, new List<PowerballSet>());
-			_httpHandler.DidNotReceive().GetStringAsync(Arg.Any<string>());
+			_service.DidNotReceive().Get();
 		}
 
 		[TestMethod]
@@ -45,14 +45,12 @@
 			const string cacheName = "name";
 			const int daysUntilStale = 1;
 			const string file = "file";
-			const string url = "url";
 			var expected = new List<PowerballSet>();
-			
+
 			_sut.CacheName = cacheName;
 			_sut.DaysUntilStale = daysUntilStale;
-			_sut.PowerballUrl = url;
 			_cacher.Get(Arg.Any<string>()).Returns(null);
-			_httpHandler.GetStringAsync(url).Returns(file);
+			_service.Get().Returns(file);
 			_parser.Parse(file).Returns(expected);
 
 			var actual = _sut.Get();
