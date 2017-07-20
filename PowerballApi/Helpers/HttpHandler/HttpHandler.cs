@@ -12,9 +12,14 @@
 			_client = new HttpClient();
 		}
 
-		public Task<string> GetStringAsync(string requestUri)
+		public HttpResponseMessage Get(string uri)
 		{
-			return _client.GetStringAsync(requestUri);
+			return GetAsync(uri).Result;
+		}
+
+		public Task<HttpResponseMessage> GetAsync(string uri)
+		{
+			return _client.GetAsync(uri);
 		}
 	}
 }

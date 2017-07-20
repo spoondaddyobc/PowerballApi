@@ -1,35 +1,34 @@
 ﻿namespace PowerballApi.Api.Repositories
 {
+	using System;
 	using System.Collections.Generic;
+	using System.Linq;
 	using Helpers.Cacher;
-	using Helpers.HttpHandler;
 	using Helpers.Parser;
 	using Models;
-	using System;
-	using System.Linq;
+	using Services;
 
 	public class PowerballRepository : IRepository<PowerballSet>
 	{
 		public string CacheName { get; set; } = @"PowerballData";
 		public int DaysUntilStale { get; set; } = 1;
-		public string PowerballUrl { get; set; } = @"http://www.powerball.com/powerball/winnums-text.txt";
 
 		private readonly ICacher _cacher;
-		private readonly IHttpHandler _httpHandler;
 		private readonly IParser<PowerballSet, string> _parser;
+		private readonly IService _service;
 
 		public PowerballRepository()
 		{
 			_cacher = new Cacher();
-			_httpHandler = new HttpHandler();
 			_parser = new PowerballParser();
+			_service = new DrawingsService();
 		}
 
-		public PowerballRepository(ICacher cacher, IHttpHandler httpHandler, IParser<PowerballSet, string> parser)
+		public PowerballRepository(ICacher cacher, IParser<PowerballSet, string> parser, IService service)
 		{
 			_cacher = cacher;
-			_httpHandler = httpHandler;
 			_parser = parser;
+			_service = service;
 		}
 
 		public List<PowerballSet> Get()
@@ -80,7 +79,7 @@
 			if (cache != null)
 				return (List<PowerballSet>)cache;
 
-			var file = _httpHandler.GetStringAsync(PowerballUrl).Result;
+			var file = _service.Get();
 			var results = _parser.Parse(file);
 			_cacher.Set(CacheName, results, DaysUntilStale);
 			return results;
