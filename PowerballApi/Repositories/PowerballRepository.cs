@@ -33,7 +33,14 @@
 
 		public List<PowerballSet> Get()
 		{
-			return GetDrawings();
+			var cache = _cacher.Get(CacheName);
+			if (cache != null)
+				return (List<PowerballSet>)cache;
+
+			var file = _service.Get();
+			var results = _parser.Parse(file);
+			_cacher.Set(CacheName, results, DaysUntilStale);
+			return results;
 		}
 
 		public PowerballSet Get(string id)
@@ -42,7 +49,7 @@
 			if (!DateTime.TryParse(id, out date))
 				throw new ArgumentException("The date input was invalid");
 
-			var data = GetDrawings();
+			var data = Get();
 
 			try
 			{
@@ -61,7 +68,7 @@
 			if (!DateTime.TryParse(idBegin, out dateBegin) || !DateTime.TryParse(idEnd, out dateEnd))
 				throw new ArgumentException("One or both date inputs were invalid.");
 
-			var data = GetDrawings();
+			var data = Get();
 
 			try
 			{
@@ -71,18 +78,6 @@
 			{
 				throw new Exception("Could not process the request", ex);
 			}
-		}
-
-		private List<PowerballSet> GetDrawings()
-		{
-			var cache = _cacher.Get(CacheName);
-			if (cache != null)
-				return (List<PowerballSet>)cache;
-
-			var file = _service.Get();
-			var results = _parser.Parse(file);
-			_cacher.Set(CacheName, results, DaysUntilStale);
-			return results;
 		}
 	}
 }
