@@ -83,7 +83,7 @@
 			{
 				Date = DateTime.Parse(date),
 				PowerPlay = null,
-				WinNumbers = new [] {1,2,3,4,5,6 }
+				WinNumbers = new [] { 1, 2, 3, 4, 5, 6 }
 			};
 			_cacher.Get(Arg.Any<string>()).Returns(new List<PowerballSet> { expected });
 
