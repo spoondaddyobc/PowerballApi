@@ -76,7 +76,7 @@
 		}
 
 		[TestMethod]
-		public void GetById_WhenValidRequestAndOneMatchingDrawing_ReturnDrawing()
+		public void GetById_WhenOneMatchingDrawing_ReturnDrawing()
 		{
 			const string date = "12/12/2000";
 			var expected = new PowerballSet
@@ -94,7 +94,7 @@
 		}
 
 		[TestMethod]
-		public void GetById_WhenValidRequestAndNoMatchingDrawing_ReturnNull()
+		public void GetById_WhenNoMatchingDrawing_ReturnNull()
 		{
 			const string requestDate = "12/12/2000";
 			const string drawingDate = "11/11/2000";
@@ -112,7 +112,7 @@
 		}
 
 		[TestMethod]
-		public void GetById_WhenValidRequestAndMultipleMatchingDrawings_ThrowException()
+		public void GetById_WhenMultipleMatchingDrawings_ThrowException()
 		{
 			const string date = "12/12/2000";
 			var drawing = new PowerballSet
