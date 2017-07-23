@@ -61,18 +61,18 @@
 			}
 		}
 
-		public List<PowerballSet> GetByRange(string idBegin, string idEnd)
+		public List<PowerballSet> GetByRange(string after, string before)
 		{
-			DateTime dateBegin;
-			DateTime dateEnd;
-			if (!DateTime.TryParse(idBegin, out dateBegin) || !DateTime.TryParse(idEnd, out dateEnd))
+			DateTime afterDate;
+			DateTime beforeDate;
+			if (!DateTime.TryParse(after, out afterDate) || !DateTime.TryParse(before, out beforeDate))
 				throw new ArgumentException("One or both date inputs were invalid.");
 
 			var data = Get();
 
 			try
 			{
-				return data.FindAll(p => dateBegin <= p.Date && p.Date <= dateEnd);
+				return data.FindAll(p => afterDate <= p.Date && p.Date <= beforeDate);
 			}
 			catch (Exception ex)
 			{
