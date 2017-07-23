@@ -1,5 +1,6 @@
 ﻿namespace PowerballApi.UnitTests
 {
+	using System;
 	using System.Collections.Generic;
 	using Api.Helpers.Cacher;
 	using Api.Helpers.Parser;
@@ -57,6 +58,83 @@
 
 			_cacher.Received().Set(cacheName, expected, daysUntilStale);
 			CollectionAssert.AreEqual(actual, expected);
+		}
+
+		[TestMethod]
+		public void GetById_WhenInvalidRequest_ThrowArgumentException()
+		{
+			const string invalidDate = "12/50/2000";
+
+			try
+			{
+				_sut.Get(invalidDate);
+			}
+			catch (Exception ex)
+			{
+				Assert.IsInstanceOfType(ex, typeof(ArgumentException));
+			}
+		}
+
+		[TestMethod]
+		public void GetById_WhenOneMatchingDrawing_ReturnDrawing()
+		{
+			const string date = "12/12/2000";
+			var expected = new PowerballSet
+			{
+				Date = DateTime.Parse(date),
+				PowerPlay = null,
+				WinNumbers = new [] { 1, 2, 3, 4, 5, 6 }
+			};
+			_cacher.Get(Arg.Any<string>()).Returns(new List<PowerballSet> { expected });
+
+			var result = _sut.Get(date);
+
+			Assert.IsNotNull(result);
+			Assert.AreEqual(result.Date, expected.Date);
+		}
+
+		[TestMethod]
+		public void GetById_WhenNoMatchingDrawing_ReturnNull()
+		{
+			const string requestDate = "12/12/2000";
+			const string drawingDate = "11/11/2000";
+			var drawing = new PowerballSet
+			{
+				Date = DateTime.Parse(drawingDate),
+				PowerPlay = null,
+				WinNumbers = new[] { 1, 2, 3, 4, 5, 6 }
+			};
+			_cacher.Get(Arg.Any<string>()).Returns(new List<PowerballSet> { drawing });
+
+			var result = _sut.Get(requestDate);
+
+			Assert.IsNull(result);
+		}
+
+		[TestMethod]
+		public void GetById_WhenMultipleMatchingDrawings_ThrowException()
+		{
+			const string date = "12/12/2000";
+			var drawing = new PowerballSet
+			{
+				Date = DateTime.Parse(date),
+				PowerPlay = null,
+				WinNumbers = new[] { 1, 2, 3, 4, 5, 6 }
+			};
+			_cacher.Get(Arg.Any<string>()).Returns(new List<PowerballSet>
+			{
+				drawing,
+				drawing
+			});
+
+			try
+			{
+				_sut.Get(date);
+			}
+			catch (Exception ex)
+			{
+				Assert.IsInstanceOfType(ex, typeof(Exception));
+			}
 		}
 	}
 }
