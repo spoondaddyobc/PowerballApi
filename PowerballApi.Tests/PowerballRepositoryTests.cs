@@ -142,14 +142,12 @@
         {
             const string dateAfter = "12/50/2011";
             const string dateBefore = "12/20/2013";
-
             try
             {
                 _sut.GetByRange(dateAfter, dateBefore);
             }
             catch (Exception ex)
             {
-
                 Assert.IsInstanceOfType(ex, typeof(ArgumentException));
             }
         }
@@ -166,7 +164,6 @@
             }
             catch (Exception ex)
             {
-
                 Assert.IsInstanceOfType(ex, typeof(ArgumentException));
             }
         }
@@ -176,7 +173,6 @@
         {
             const string dateAfter = "01/01/2017";
             const string dateBefore = "01/31/2017";
-
             var drawingList = new List<PowerballSet>
             {
                 new PowerballSet
@@ -194,10 +190,9 @@
                 }
             };
             _cacher.Get(Arg.Any<string>()).Returns(drawingList);
-
             var result = _sut.GetByRange(dateAfter, dateBefore);
-
             Assert.AreEqual(drawingList.Count, result.Count);
+            Assert.IsNotNull(result);
         }
 
         [TestMethod]
@@ -205,7 +200,6 @@
         {
             const string dateAfter = "01/01/2017";
             const string dateBefore = "01/31/2017";
-
             var drawingList = new List<PowerballSet>
             {
                 new PowerballSet
@@ -223,11 +217,9 @@
                 },
             };
             _cacher.Get(Arg.Any<string>()).Returns(drawingList);
-
             var result = _sut.GetByRange(dateAfter, dateBefore);
-
             Assert.AreEqual(0, result.Count);
-
+            Assert.IsNotNull(result);
         }
 
         [TestMethod]
@@ -235,7 +227,6 @@
         {
             const string dateAfter = "01/31/2017";
             const string dateBefore = "01/01/2017";
-
             var drawingList = new List<PowerballSet>
             {
                 new PowerballSet
@@ -253,7 +244,6 @@
                 },
             };
             _cacher.Get(Arg.Any<string>()).Returns(drawingList);
-
             try
             {
                 var result = _sut.GetByRange(dateAfter, dateBefore);
