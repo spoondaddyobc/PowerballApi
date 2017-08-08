@@ -143,18 +143,6 @@
             const string dateAfter = "12/50/2011";
             const string dateBefore = "12/20/2013";
 
-            var drawing = new PowerballSet
-            {
-                Date = DateTime.Parse(dateBefore),
-                PowerPlay = null,
-                WinNumbers = new[] { 1, 2, 3, 4, 5, 6 }
-            };
-            _cacher.Get(Arg.Any<string>()).Returns(new List<PowerballSet>
-
-            {
-                drawing
-            });
-
             try
             {
                 _sut.GetByRange(dateAfter, dateBefore);
@@ -162,7 +150,7 @@
             catch (Exception ex)
             {
 
-                Assert.IsInstanceOfType(ex, typeof(Exception));
+                Assert.IsInstanceOfType(ex, typeof(ArgumentException));
             }
         }
 
@@ -172,18 +160,6 @@
             const string dateAfter = "01/15/2015";
             const string dateBefore = "01/44/2016";
 
-            var drawing = new PowerballSet
-            {
-                Date = DateTime.Parse(dateAfter),
-                PowerPlay = null,
-                WinNumbers = new[] { 1, 2, 3, 4, 5, 6 }
-            };
-            _cacher.Get(Arg.Any<string>()).Returns(new List<PowerballSet>
-
-            {
-                drawing
-            });
-
             try
             {
                 _sut.GetByRange(dateAfter, dateBefore);
@@ -191,7 +167,7 @@
             catch (Exception ex)
             {
 
-                Assert.IsInstanceOfType(ex, typeof(Exception));
+                Assert.IsInstanceOfType(ex, typeof(ArgumentException));
             }
         }
 
@@ -212,13 +188,6 @@
                 new PowerballSet
                 {
                     Date = DateTime.Parse("01/10/2017"),
-                    PowerPlay = null,
-                    WinNumbers = new[] {1, 2, 3, 4, 5, 6}
-
-                },
-                new PowerballSet
-                {
-                    Date = DateTime.Parse("01/21/2017"),
                     PowerPlay = null,
                     WinNumbers = new[] {1, 2, 3, 4, 5, 6}
 
@@ -252,13 +221,6 @@
                     WinNumbers = new[] {1, 2, 3, 4, 5, 6}
 
                 },
-                new PowerballSet
-                {
-                    Date = DateTime.Parse("02/21/2017"),
-                    PowerPlay = null,
-                    WinNumbers = new[] {1, 2, 3, 4, 5, 6}
-
-                }
             };
             _cacher.Get(Arg.Any<string>()).Returns(drawingList);
 
@@ -266,6 +228,40 @@
 
             Assert.AreEqual(0, result.Count);
 
+        }
+
+        [TestMethod]
+        public void GetByRange_ReversedDates_ThrowsException()
+        {
+            const string dateAfter = "01/31/2017";
+            const string dateBefore = "01/01/2017";
+
+            var drawingList = new List<PowerballSet>
+            {
+                new PowerballSet
+                {
+                    Date = DateTime.Parse("01/01/2017"),
+                    PowerPlay = null,
+                    WinNumbers = new[] {1, 2, 3, 4, 5, 6}
+                },
+                new PowerballSet
+                {
+                    Date = DateTime.Parse("01/10/2017"),
+                    PowerPlay = null,
+                    WinNumbers = new[] {1, 2, 3, 4, 5, 6}
+
+                },
+            };
+            _cacher.Get(Arg.Any<string>()).Returns(drawingList);
+
+            try
+            {
+                var result = _sut.GetByRange(dateAfter, dateBefore);
+            }
+            catch (Exception ex)
+            {
+                Assert.IsInstanceOfType(ex, typeof(Exception));
+            }
         }
     }
 }
