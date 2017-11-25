@@ -1,4 +1,10 @@
-﻿namespace PowerballApi.Api
+﻿using System.Reflection;
+using Autofac;
+using Autofac.Integration.WebApi;
+using PowerballApi.Api.Helpers.Cacher;
+
+
+namespace PowerballApi.Api
 {
 	using System.Web.Http;
 
@@ -6,7 +12,11 @@
 	{
 		protected void Application_Start()
 		{
-			GlobalConfiguration.Configure(WebApiConfig.Register);
+			
+            Bootstrapper.Configure();
+            GlobalConfiguration.Configure(WebApiConfig.Register);
+            
+
 		}
 	}
 }

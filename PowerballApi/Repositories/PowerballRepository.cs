@@ -17,13 +17,6 @@
 		private readonly IParser<PowerballSet, string> _parser;
 		private readonly IService _service;
 
-		public PowerballRepository()
-		{
-			_cacher = new Cacher();
-			_parser = new PowerballParser();
-			_service = new DrawingsService();
-		}
-
 		public PowerballRepository(ICacher cacher, IParser<PowerballSet, string> parser, IService service)
 		{
 			_cacher = cacher;

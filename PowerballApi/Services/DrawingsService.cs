@@ -7,9 +7,9 @@
 		private const string _powerballUrl = @"http://www.powerball.com/powerball/winnums-text.txt";
 		private readonly IHttpHandler _httpHandler;
 
-		public DrawingsService()
+		public DrawingsService(IHttpHandler handler)
 		{
-			_httpHandler = new HttpHandler();
+		    _httpHandler = handler;
 		}
 
 		public string Get()
