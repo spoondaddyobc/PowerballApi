@@ -1,10 +1,4 @@
-﻿using System.Reflection;
-using Autofac;
-using Autofac.Integration.WebApi;
-using PowerballApi.Api.Helpers.Cacher;
-
-
-namespace PowerballApi.Api
+﻿namespace PowerballApi.Api
 {
 	using System.Web.Http;
 

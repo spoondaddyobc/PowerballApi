@@ -1,16 +1,16 @@
-﻿using System.Reflection;
-using System.Web.Http;
-using Autofac;
-using Autofac.Integration.WebApi;
-using PowerballApi.Api.Helpers.Cacher;
-using PowerballApi.Api.Helpers.HttpHandler;
-using PowerballApi.Api.Helpers.Parser;
-using PowerballApi.Api.Models;
-using PowerballApi.Api.Repositories;
-using PowerballApi.Api.Services;
-
-namespace PowerballApi.Api
+﻿namespace PowerballApi.Api
 {
+    using System.Reflection;
+    using System.Web.Http;
+    using Autofac;
+    using Autofac.Integration.WebApi;
+    using Helpers.Cacher;
+    using Helpers.HttpHandler;
+    using Helpers.Parser;
+    using Models;
+    using Repositories;
+    using Services;
+
     public class Bootstrapper
     {
 
@@ -22,7 +22,6 @@ namespace PowerballApi.Api
             builder.RegisterType<PowerballParser>().As<IParser<PowerballSet, string>>();
             builder.RegisterType<PowerballRepository>().As<IRepository<PowerballSet>>();
             builder.RegisterType<DrawingsService>().As<IService>();
-
 
             var config = GlobalConfiguration.Configuration;
             builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
