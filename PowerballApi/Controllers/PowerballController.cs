@@ -10,11 +10,6 @@
 	{
 		private readonly IRepository<PowerballSet> _repository;
 
-		public PowerballController()
-		{
-			_repository = new PowerballRepository();
-		}
-
 		public PowerballController(IRepository<PowerballSet> repository)
 		{
 			_repository = repository;
