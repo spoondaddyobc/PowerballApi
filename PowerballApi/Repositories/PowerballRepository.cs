@@ -58,7 +58,9 @@
 		{
 			DateTime afterDate;
 			DateTime beforeDate;
-			if (!DateTime.TryParse(after, out afterDate) || !DateTime.TryParse(before, out beforeDate))
+			if (!DateTime.TryParse(after, out afterDate) ||
+			    !DateTime.TryParse(before, out beforeDate) ||
+			    DateTime.Compare(afterDate, beforeDate) > 0)
 				throw new ArgumentException("One or both date inputs were invalid.");
 
 			var data = Get();
